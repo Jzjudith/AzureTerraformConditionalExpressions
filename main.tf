@@ -4,15 +4,15 @@ resource "azurerm_resource_group" "example" {
   location = "East US2"
 }
 resource "azurerm_availability_set" "example" {
-  count               = var.aset_create ? 1 : 0
-  name                = var.asset_name
+  count               = var.avset_create ? 1 : 0
+  name                = var.avset_name
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
 }
 
 # virtual network
 resource "azurerm_virtual_network" "example" {
-  count               = var.compute_count
+  count = var.compute_count
 
   name                = "${var.virtual_network_name}-${count.index}"
   location            = azurerm_resource_group.example.location
@@ -25,12 +25,12 @@ resource "azurerm_virtual_network" "example" {
 
 # subnets
 resource "azurerm_subnet" "example" {
-  count                = var.compute_count
+  count = var.compute_count
 
   name                 = "${var.subnet_name}-${count.index}"
   resource_group_name  = azurerm_resource_group.example.name
   virtual_network_name = "${var.virtual_network_name}-${count.index}"
-  address_prefixes = ["10.0.1.0/24", "172.16.1.0/24"]
+  address_prefixes     = ["10.0.1.0/24", "172.16.1.0/24"]
   depends_on = [
     azurerm_virtual_network.example
   ]
@@ -38,7 +38,7 @@ resource "azurerm_subnet" "example" {
 
 # network interfaces
 resource "azurerm_network_interface" "example" {
-  count               = var.compute_count
+  count = var.compute_count
 
   name                = "${var.network_interface_name}-${count.index}"
   location            = azurerm_resource_group.example.location
@@ -57,8 +57,8 @@ resource "azurerm_network_interface" "example" {
 
 
 resource "azurerm_linux_virtual_machine" "example" {
-  count                           = var.compute_count
-  
+  count = var.compute_count
+
   name                            = "${var.virtual_machine_name}-${count.index}"
   resource_group_name             = azurerm_resource_group.example.name
   location                        = azurerm_resource_group.example.location
