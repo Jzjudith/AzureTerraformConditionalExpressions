@@ -12,9 +12,7 @@ resource "azurerm_availability_set" "example" {
 
 # virtual network
 resource "azurerm_virtual_network" "example" {
-  count = var.compute_count
-
-  name                = "${var.virtual_network_name}-${count.index}"
+  name                = var.virtual_network_name
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
   address_space       = var.vnet_cidr_space
