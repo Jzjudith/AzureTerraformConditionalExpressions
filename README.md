@@ -1,5 +1,6 @@
 ## Azure Terraform Conditional Expressions
-This is to show how terraform contitional expressions work. When aset_create is set to true (in terraform.tfvars file), the example comfiguration creates an availability set and attaches the virtual machine to it but when set to false, it does not create availability set.
+This is to show how terraform contitional expressions work. When **avset_create** is set to **true** (in terraform.tfvars file), the example comfiguration creates an availability set and attaches the virtual machine(s) to it but when set to **false**, it does not create availability set.
+The number of instances of other resources to be create can be changed by using **compute_create** variable.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -12,7 +13,7 @@ This is to show how terraform contitional expressions work. When aset_create is 
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 3.26.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >= 3.20.0 |
 
 ## Modules
 
@@ -33,15 +34,15 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_aset_create"></a> [aset\_create](#input\_aset\_create) | Boolean to determine whether or not we want to create a availabilty set. | `bool` | `true` | no |
-| <a name="input_asset_name"></a> [asset\_name](#input\_asset\_name) | The name of the availability set | `string` | `"tfaz-availset"` | no |
-| <a name="input_compute_count"></a> [compute\_count](#input\_compute\_count) | n/a | `number` | `2` | no |
-| <a name="input_ip_config_name"></a> [ip\_config\_name](#input\_ip\_config\_name) | n/a | `string` | `"tfaz-ipconfig"` | no |
-| <a name="input_network_interface_name"></a> [network\_interface\_name](#input\_network\_interface\_name) | n/a | `string` | `"tfaz-nic"` | no |
+| <a name="input_avset_create"></a> [avset\_create](#input\_avset\_create) | Boolean to determine whether or not we want to create an availabilty set. | `bool` | `true` | no |
+| <a name="input_avset_name"></a> [avset\_name](#input\_avset\_name) | The name of the availability set | `string` | `"tfaz-availset"` | no |
+| <a name="input_compute_count"></a> [compute\_count](#input\_compute\_count) | The number of instances to be created | `number` | `3` | no |
+| <a name="input_ip_config_name"></a> [ip\_config\_name](#input\_ip\_config\_name) | The name of the ip configuration of the network interface | `string` | `"tfaz-ipconfig"` | no |
+| <a name="input_network_interface_name"></a> [network\_interface\_name](#input\_network\_interface\_name) | The name of the network interface | `string` | `"tfaz-nic"` | no |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The name os the resource group | `string` | `"tfaz-conditonal-rg"` | no |
-| <a name="input_subnet_name"></a> [subnet\_name](#input\_subnet\_name) | n/a | `string` | `"tfaz-subnet"` | no |
-| <a name="input_virtual_machine_name"></a> [virtual\_machine\_name](#input\_virtual\_machine\_name) | n/a | `string` | `"tfaz-availvm"` | no |
-| <a name="input_virtual_network_name"></a> [virtual\_network\_name](#input\_virtual\_network\_name) | n/a | `string` | `"tfaz-vnet"` | no |
+| <a name="input_subnet_name"></a> [subnet\_name](#input\_subnet\_name) | The name of the subnet | `string` | `"tfaz-subnet"` | no |
+| <a name="input_virtual_machine_name"></a> [virtual\_machine\_name](#input\_virtual\_machine\_name) | The name of the virtual machine | `string` | `"tfaz-availvm"` | no |
+| <a name="input_virtual_network_name"></a> [virtual\_network\_name](#input\_virtual\_network\_name) | The name of the virtual network | `string` | `"tfaz-vnet"` | no |
 | <a name="input_vnet_cidr_space"></a> [vnet\_cidr\_space](#input\_vnet\_cidr\_space) | The vnets address space | `list(string)` | <pre>[<br>  "10.0.0.0/16",<br>  "172.16.0.0/16"<br>]</pre> | no |
 
 ## Outputs
