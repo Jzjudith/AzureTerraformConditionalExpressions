@@ -1,3 +1,6 @@
+## Azure Terraform Conditional Expressions
+This is to show how terraform contitional expressions work. When aset_create is set to true (in terraform.tfvars file), the example comfiguration creates an availability set and attaches the virtual machine to it but when set to false, it does not create availability set.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
