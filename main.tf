@@ -25,12 +25,11 @@ resource "azurerm_virtual_network" "example" {
 
 # subnets
 resource "azurerm_subnet" "example" {
-  count = var.compute_count
-
-  name                 = "${var.subnet_name}-${count.index}"
+  for_each             = var.subnets
+  name                 = each.key
   resource_group_name  = azurerm_resource_group.example.name
-  virtual_network_name = "${var.virtual_network_name}-${count.index}"
-  address_prefixes     = ["10.0.1.0/24", "172.16.1.0/24"]
+  virtual_network_name = azurerm_virtual_network.example.name
+  address_prefixes     = each.value
   depends_on = [
     azurerm_virtual_network.example
   ]

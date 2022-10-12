@@ -9,16 +9,33 @@ variable "virtual_network_name" {
   default     = "tfaz-vnet"
 }
 
-variable "subnet_name" {
-  type        = string
-  description = "The name of the subnet"
-  default     = "tfaz-subnet"
+variable "vnet_cidr_space" {
+  type        = list(string)
+  description = "The vnets address space"
+  default     = ["10.0.0.0/16", "172.16.0.0/16"]
+}
+
+variable "subnets" {
+  type        = map(any)
+  description = "The address prefixes to use for the each subnet."
+  default = {
+    private_subnet = ["10.0.1.0/24"]
+
+    public_subnet = ["172.16.1.0/24"]
+
+  }
 }
 
 variable "avset_name" {
   type        = string
   description = "The name of the availability set"
   default     = "tfaz-availset"
+}
+
+variable "avset_create" {
+  type        = bool
+  description = "Boolean to determine whether or not we want to create an availabilty set."
+  default     = true
 }
 
 variable "virtual_machine_name" {
@@ -39,19 +56,7 @@ variable "ip_config_name" {
   default     = "tfaz-ipconfig"
 }
 
-variable "vnet_cidr_space" {
-  type        = list(string)
-  description = "The vnets address space"
-  default     = ["10.0.0.0/16", "172.16.0.0/16"]
-}
-
-variable "avset_create" {
-  type        = bool
-  description = "Boolean to determine whether or not we want to create an availabilty set."
-  default     = true
-}
-
 variable "compute_count" {
   description = "The number of instances to be created"
-  default     = 3
+  default     = 2
 }
