@@ -12,9 +12,8 @@ resource "azurerm_availability_set" "example" {
 
 # virtual network
 resource "azurerm_virtual_network" "example" {
-  # for_each = var.virtual_network
-
   count               = var.compute_count
+
   name                = "${var.virtual_network_name}-${count.index}"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
@@ -26,13 +25,11 @@ resource "azurerm_virtual_network" "example" {
 
 # subnets
 resource "azurerm_subnet" "example" {
-  # for_each             = var.subnets
-  # name                 = each.key
   count                = var.compute_count
+
   name                 = "${var.subnet_name}-${count.index}"
   resource_group_name  = azurerm_resource_group.example.name
   virtual_network_name = "${var.virtual_network_name}-${count.index}"
-  # {for name in keys(var.virtual_network) : name => azurerm_virtual_network.example[each.key].name}
   address_prefixes = ["10.0.1.0/24", "172.16.1.0/24"]
   depends_on = [
     azurerm_virtual_network.example
@@ -41,9 +38,8 @@ resource "azurerm_subnet" "example" {
 
 # network interfaces
 resource "azurerm_network_interface" "example" {
-  # for_each            = var.nic
-  # name                = each.key
   count               = var.compute_count
+
   name                = "${var.network_interface_name}-${count.index}"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
@@ -61,9 +57,8 @@ resource "azurerm_network_interface" "example" {
 
 
 resource "azurerm_linux_virtual_machine" "example" {
-  # for_each = var.avail_set
-  # name                            = each.key
   count                           = var.compute_count
+  
   name                            = "${var.virtual_machine_name}-${count.index}"
   resource_group_name             = azurerm_resource_group.example.name
   location                        = azurerm_resource_group.example.location
