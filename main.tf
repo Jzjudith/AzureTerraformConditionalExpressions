@@ -66,7 +66,7 @@ resource "azurerm_linux_virtual_machine" "example" {
   admin_username                  = "devlab"
   admin_password                  = "Password123"
   disable_password_authentication = false
-  availability_set_id             = var.aset_create ? azurerm_availability_set.example[0].id : null
+  availability_set_id             = var.avset_create ? azurerm_availability_set.example[0].id : null
   network_interface_ids           = [element([for nic in azurerm_network_interface.example : nic.id], count.index), ]
 
   os_disk {
