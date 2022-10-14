@@ -60,3 +60,10 @@ variable "compute_count" {
   description = "The number of instances to be created"
   default     = 2
 }
+
+variable "tags" {
+  description = "The tags attached to the resources"
+  default     = {
+    environment = "Development"
+  }
+}
