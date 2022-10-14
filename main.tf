@@ -2,12 +2,14 @@
 resource "azurerm_resource_group" "example" {
   name     = var.resource_group_name
   location = "East US2"
+  tags     = var.tags
 }
 resource "azurerm_availability_set" "example" {
   count               = var.avset_create ? 1 : 0
   name                = var.avset_name
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
+  tags                = var.tags
 }
 
 # virtual network
@@ -19,6 +21,7 @@ resource "azurerm_virtual_network" "example" {
   depends_on = [
     azurerm_resource_group.example
   ]
+  tags = var.tags
 }
 
 # subnets
@@ -31,7 +34,7 @@ resource "azurerm_subnet" "example" {
   depends_on = [
     azurerm_virtual_network.example
   ]
-}
+ }
 
 # network interfaces
 resource "azurerm_network_interface" "example" {
@@ -49,6 +52,7 @@ resource "azurerm_network_interface" "example" {
   depends_on = [
     azurerm_subnet.example
   ]
+  tags = var.tags
 }
 
 
